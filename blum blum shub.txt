@@ -1,0 +1,58 @@
+p=11;
+q=19;
+seed=3;
+window=4;
+m=p*q;
+n=5;
+random=[];
+n=5*window;
+while (i<=n)
+for i=1:n
+    if(i==1)
+        x=seed;
+    else
+        x=mod((seed*seed),m);
+        array=dec2bin(x)
+        
+        
+        j=1;count=0;
+        while(j<=length(array))
+            if(array(j)=='1')
+                count=count+1;
+            end
+            j=j+1;
+                
+       
+        
+        end
+       
+        if mod(count,2)== 0
+            parity(i)=0
+        else
+            parity(i)=1
+        end
+    seed=x;
+    i=i+1;
+    
+    end      
+end
+end
+i=1;
+j=1;
+k=4;
+while(j<length(parity))
+    temp=parity(j:k);
+    temp=num2str(temp);
+    j=j+4;
+    k=k+4;
+    random(i)=bin2dec(temp);
+    i=i+1;
+end
+display(random);
+
+
+
+%disp(x);
+%disp(array);
+%disp(parity);
+

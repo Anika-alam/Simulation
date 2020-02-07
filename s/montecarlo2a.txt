@@ -1,0 +1,61 @@
+trialNumber = 10000;
+%prompt = 'Enter trial number: ';
+%trialNumber = input(prompt);
+
+theoriticalI = 0;
+hits = 0;
+xHit = [];
+yHit = [];
+xMis = [];
+yMis = [];
+
+a = 0;
+b = 2*pi;
+Xupper = 6;
+Xlower = 0;
+Yupper = 1;
+Ymiddle = 0;
+Ylower = -1;
+
+x = linspace(0,7,500);
+y = sin(x);
+plot(x,y,'b');
+hold on;
+
+for i=1:trialNumber
+    x = rand()*(Xupper-Xlower)+Xlower;
+    y = rand()*(Yupper - Ymiddle) + Ymiddle;
+    if(x>=Xupper/2)
+      y = abs(y)*-1;
+    end 
+    fprintf('x= %f , y = %f\n',x,y)
+    fx = sin(x);
+    %disp(hits);
+    if (y >= 0 && y<=fx) || (y<=0 && y>=fx) 
+        xHit = [xHit x];
+        yHit = [yHit y];
+        hits = hits + 1;
+    else
+        if (x<=b/2 && y>=0) || (x>=b/2 && y<=0)
+            xMis = [xMis x];
+            yMis = [yMis y];
+        end
+    end
+end
+
+disp(hits);
+fb = sin(b/4);
+fprintf('B = %f , FB = %f\n',b,fb);
+R = abs(b-a)*abs(fb) ;
+plot(xHit,yHit,'g.');
+plot(xMis,yMis,'r.');
+
+expI = (hits/trialNumber)*R;
+
+disp('Experimental I: ');
+disp(expI);
+
+diff = abs(theoriticalI - expI);
+disp('Difference');
+disp(diff);
+hold off;

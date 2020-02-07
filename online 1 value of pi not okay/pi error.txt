@@ -1,0 +1,29 @@
+j = 10;
+while j < 10000
+  hits = 0;
+  n = j;
+  for i = 1:n
+    x1=rand();
+    y1=rand();
+    if x1.^2+y1.^2<=1
+      hits=hits+1; 
+    end  
+  end
+   pie = (hits*4)/n;
+   error = abs(pie-pi)
+   plot(j,error,'b.') ;
+   hold on
+   j = j+10;  
+end
+
+xlabel('trailNumber');
+ylabel('errors');
+
+
+
+
+
+
+
+
+    

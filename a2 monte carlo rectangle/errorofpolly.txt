@@ -1,0 +1,36 @@
+x1 = 1;y1 = 0;
+x2 = 0;y2 = - 1;
+x3 = -1;y3 = 0;
+x4 = 0;y4 = 1;
+
+#actual value of the integration
+area_of_parallelogram = abs((x1 * (y2 - y3) + x2 * (y3 - y1) +  
+       x3 * (y1 - y2)) / 2.0) + abs((x1 * (y3 - y4) + 
+       x3 * (y4 - y1) + x4 * (y1 - y3)) / 2.0);
+       
+j = 10;
+while j < 10000 #set the trials number highest range
+  hit = 0;
+  n = j;
+  for i = 1:n
+    x_rand = rand()*(x1-x3)+x3;
+    y_rand = rand()*(y4-y2)+y2;
+    area_of_point = abs((x_rand * (y1 - y2) + x1 * (y2 - y_rand) +  
+       x2 * (y_rand - y1)) / 2.0) + abs((x_rand * (y2 - y3) + x2 * (y3 - y_rand) +  
+       x3 * (y_rand - y2)) / 2.0) + abs((x_rand * (y3 - y4) + x3 * (y4 - y_rand) +  
+       x4 * (y_rand - y3)) / 2.0) + abs((x_rand * (y4 - y1) + x4 * (y1 - y_rand) +  
+       x1 * (y_rand - y4)) / 2.0);
+    if area_of_parallelogram >= area_of_point #is the point hit or miss
+      hit=hit+1; 
+    end  
+  end
+   area_of_rect = (x1-x3) * (y4 - y2);
+   result = (hit/n)*area_of_rect;
+   error = abs(area_of_parallelogram - result);
+   plot(j,error,'b.') ;
+   hold on
+   j = j+10;  
+end
+
+xlabel('trailNumber');
+ylabel('errors');

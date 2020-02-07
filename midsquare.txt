@@ -1,0 +1,18 @@
+totalNumber = 1;
+choose = 7182;
+disp('Total Random Numbers are : ');
+for i = 1:totalNumber
+    random = choose ^ 2
+    random =( random / 1000000 )% Find the dividend
+    random1=floor(random)
+    random2=floor((random-random1)*10000)
+    ui=random2/10000
+    choose=random2
+    array(i)=random2
+   
+   
+   i=i+1;
+    
+end
+ 
+fprintf('\n');

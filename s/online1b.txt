@@ -1,0 +1,58 @@
+trialValues = (10:20:1000); 
+%trialValues = (10:20:10000);
+
+trialValuesSz = size(trialValues);
+allDiff = [];
+for i=1 : trialValuesSz(2)
+    trialNumber = 10;
+    %prompt = 'Enter trial number: ';
+    %trialNumber = trialValues(i);
+
+    theoriticalPi = 3.1416;
+    r = 1; 
+    
+    hits = 0;
+    xHit = [];
+    yHit = [];
+    xMis = [];
+    yMis = [];
+    
+    for i=1:trialNumber
+      x = rand();
+        y = rand();
+        fx = x^2 + y^2 ;
+        if fx <= r
+            xHit = [xHit x];
+            yHit = [yHit y];
+            hits = hits + 1;
+        else
+            xMis = [xMis x];
+            yMis = [yMis y];
+        end
+    end
+    
+    %x = linspace(0,1,100);
+    %y = sqrt(1 - x.^2);
+    %plot(x,y,'b');
+    %hold on;
+    
+    %plot(xHit,yHit,'g.');
+    %hold on;
+    %plot(xMis,yMis,'r.');
+    %hold on;
+
+    experimentalPi = (hits/trialNumber)* 4;
+
+    %disp('Experimental pi: ');
+    %disp(expPi);
+
+    diff = abs(theoriticalPi - experimentalPi);
+    %disp('Difference')
+    %disp(diff);
+    allDiff = [allDiff diff];
+    %hold off;
+end
+hold off;
+plot(trialValues,allDiff);
+xlabel('Trials');
+ylabel('Error');

@@ -1,0 +1,75 @@
+function SSQTemplateImp(n,pa,ps)% ps is the service rate and pa is the arrival rate
+rand('state',0) % produce same sequence of random numbers every time you run the code..
+disp('This is a single server queue')
+
+% we need some data structure and statistical counters
+serverBusy=0; % whether the server is busy or not
+cDelay=0; % delay
+customersServed=0; % customers served
+Queue=[]; % the queue which is initially empty
+
+% initially there are no departure and arrival scheduled
+% we generate the initial arrival only , service rates will be generated only when they are entering in the service
+%and initially there is no departure 
+nextArrival = geometric(pa);
+nextDeparture=realmax;
+currentTime = nextArrival; % simulation time 
+
+
+while customersServed<n
+	% decide the next event
+	if nextArrival<nextDeparture
+        currentTime = nextArrival;
+	else
+		currentTime = nextDeparture;
+	end
+		
+	if currentTime == nextArrival % next event arrival
+		currentTime=nextArrival;
+        % check if the server is busy or not
+            if serverBusy == 0
+            % server idle :
+                      % 1.set delay = 0 for this customer.
+                      % 2.mark the server busy
+                      serverBusy = 1;
+                      % 3.schedule a departure time for this customer
+                      nextDeparture = currentTime + geometric(ps); 
+            else
+            % server busy :
+                      % 1. put the new job(arrival time) into the queue
+                      Queue = [Queue currentTime];
+                      Queue
+            end
+		% generate next arrival
+        nextArrival = currentTime + geometric(pa);
+    else
+        customersServed = customersServed + 1;
+        serverBusy = 0;
+        
+        % check if the queue is empty or not 
+            % if Queue is not empty :
+                    if length(Queue) ~= 0
+                    % 1. subtract the first element from the Queue.
+                    jobDeparts = Queue(1);
+                    
+                    % 2. compute delay of the customer you have subtructed
+                    % from step-1
+                    cDelay = cDelay + (currentTime - jobDeparts );
+                    % 3. schedule a departure for this customer
+                    nextDeparture = currentTime + geometric(ps);
+                    % 4. move each customer in Queue 1 place up
+                    Queue = Queue(2 : length(Queue));
+            % if Queue is empty :
+                    else
+                    % 1. set the next event as arrival event.
+                    nextDeparture = realmax;
+                    end
+    end    
+end
+
+disp('Average Delay:') % you have to find it out
+disp(cDelay / n)
+disp('Average number of customers in queue : ') % you have to find it out
+disp('Server Utilization : ') % you have to find it out
+
+end

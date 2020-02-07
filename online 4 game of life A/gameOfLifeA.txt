@@ -1,0 +1,64 @@
+
+prompt=('enter gen:');
+noOfGen=input(prompt);
+prompt1=('enter row:');
+row=input(prompt1);
+prompt2=('enter col:');
+col=input(prompt2);
+a1=zeros(row,col);
+disp(a1);
+tempa1=a1;
+
+a1(2,3)=1;
+a1(2,4)=1;
+a1(2,5)=1;
+a1(3,2)=1;
+a1(3,3)=1;
+a1(3,4)=1
+n=row;
+for iteration=1:noOfGen
+    fprintf('Generation %d\n',iteration);
+    disp(a1);
+    tempa1 = a1;
+    for i=1:n
+       for j=1:n
+           count = 0;
+           C = i - 1;
+           D = j - 1;
+           R = i + 1;
+           S = j + 1;
+           
+           if(C<1)
+               C = 1;
+           end
+           if(D<1)
+               D = 1;
+           end
+           if(R>n)
+               R = n;
+           end
+           if(S>n)
+               S = n;
+           end 
+           
+           for a=C : R
+               for b=D:S
+                   
+                   if( (a==i) && (b==j) )
+                   else
+                        count = count + tempa1(a,b);
+                        
+                   end
+               end
+           end
+          
+           if(a1(i,j)==0 && count==3)
+               a1(i,j)=1;
+           elseif(a1(i,j)==1 && count<2)
+               a1(i,j)=0;
+           elseif(a1(i,j)==1 && count>3)
+               a1(i,j)=0;
+           end     
+       end
+    end
+end

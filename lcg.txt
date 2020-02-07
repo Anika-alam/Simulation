@@ -1,0 +1,14 @@
+n=5;
+m=16;
+a=5;
+c=3;
+z_i=7;
+i=1;
+rand=[];
+while(i<n)
+    z=a*z_i+c;
+    z_i=mod(z,m);
+    rand(i)=z_i/m;
+    i=i+1;
+end
+disp(rand);

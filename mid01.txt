@@ -1,0 +1,28 @@
+
+
+prompt=('input trial no: ');
+n= input(prompt);
+array= zeros(1,6);
+array1=zeros(1,6)
+
+x= (1:6);
+x1=(1:6);
+count=0;
+%generate random numbers
+
+for i=1:n
+    numbers=rand(1,6);
+    numbers1=rand(1,6);
+    
+    if(array(numbers)+array1(numbers1)==7)
+        count=count+1
+    else
+        count=0;
+    end
+    
+end
+
+
+
+
+

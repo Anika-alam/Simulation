@@ -1,0 +1,92 @@
+xA = 0;
+yA = 1000;
+vA = 60;
+xA_posns = [xA];
+yA_posns = [yA];
+
+xB = 12000;
+yB = 2000;
+vB = 60; 
+xB_posns = [xB];
+yB_posns = [yB];
+
+xC = 10000;
+yC = 10000;
+vC = 60; 
+xC_posns = [xC];
+yC_posns = [yC];
+
+xD = 5000;
+yD = 15000;
+vD = 60; 
+xD_posns = [xD];
+yD_posns = [yD];
+
+timeLimit = 300;
+distanceLimit = 1000;
+
+delT = 2;
+
+t=0;
+while(1)
+
+  distAtoB = sqrt((xB - xA)^2 + (yB - yA)^2 );
+  distBtoC = sqrt((xC - xB)^2 + (yC - yB)^2 );
+  distCtoD = sqrt((xD - xC)^2 + (yD - yC)^2 );
+  
+  if(t >= timeLimit)
+    disp('Target D Wins');
+    break;
+  end
+  if(distAtoB<=distanceLimit)
+    disp('Defense A Wins');
+    break;
+  end
+  if(distBtoC<=distanceLimit)
+    disp('Defense B Wins');
+    break;
+  end
+  if(distCtoD<=distanceLimit)
+    disp('Defense C Wins');
+    break;
+  end
+  
+  
+  xD_prev = xD;
+  xD = xD - vD*delT;
+  
+  xC_prev = xC;
+  yC_prev = yC;
+  xC = xC + vC*delT * ((xD_prev - xC)/distCtoD);
+  yC = yC + vC*delT * ((yD - yC)/distCtoD);
+  
+  xB_prev = xB;
+  yB_prev = yB;
+  xB = xB + vB*delT * ((xC_prev - xB)/distBtoC);
+  yB = yB + vB*delT * ((yC_prev - yB)/distBtoC);
+  
+  xA = xA + vA*delT * ((xB_prev - xA)/distAtoB);
+  yA = yA + vA*delT * ((yB - yA)/distAtoB);
+  
+  xD_posns = [xD_posns xD];
+  yD_posns = [yD_posns yD];
+  
+  xC_posns = [xC_posns xC];
+  yC_posns = [yC_posns yC];
+  
+  xB_posns = [xB_posns xB];
+  yB_posns = [yB_posns yB];
+
+  xA_posns = [xA_posns xA];
+  yA_posns = [yA_posns yA];
+  t = t + delT;
+end
+
+plot(xD_posns,yD_posns,'mo','MarkerSize',10,'LineWidth',5);
+hold on;
+plot(xC_posns,yC_posns,'bo','MarkerSize',10,'LineWidth',5);
+plot(xB_posns,yB_posns,'go','MarkerSize',10,'LineWidth',5);
+plot(xA_posns,yA_posns,'ro','MarkerSize',10,'LineWidth',5);
+axis([-15000 15000 0 15000])
+
+hold off;

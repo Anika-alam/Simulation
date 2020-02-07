@@ -1,0 +1,37 @@
+ylim([0,10]);
+
+x=linspace(0,6,100);
+y=(x.^2)+5;
+
+plot(x,y);
+hold on;
+hit=0;
+prompt=('Enter trialnumber:');
+n= input(prompt);
+x_lim=2;
+y_lim=5;
+f=x_lim.^2+5;
+f_of_f=y_lim.^2+5;
+axis([0 6 0 f_of_f]);
+for i=1:n
+    x1=rand() *(y_lim-x_lim)+x_lim;
+    y1=rand()*f_of_f;
+    f_of_y=(x1.^2+5);
+    if(f_of_y>=y1)
+        hit=hit+1;
+        plot(x1,y1,'b.');
+    else
+        plot(x1,y1,'m.');
+    end
+    
+    
+    i=i+1;
+           
+                
+                
+end
+ R=(y_lim-x_lim)*f_of_f
+ I=(hit*R)/n
+
+
+

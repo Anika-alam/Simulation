@@ -1,0 +1,33 @@
+cycle=[1;2;3;4;5];
+days=[1;2;3;4;5];
+Random_digit_for_demand=[24;35;65;81;54;03;87;27;73;70;47;45;48;17;09];
+begining_inventory=[];
+demand=[];
+ending_inventory=[];
+Shortage_quantity=[];
+order_quantity=[];
+Random_digit_for_lead_time=[];
+Days_until_order_arrive=[];
+initial_inventory=3;
+for i=1:5
+    begining_inventory(i)=initial_inventory;
+    if(Random_digit_for_demand(i)<=10)
+        demand(i)=0;
+    else if(Random_digit_for_demand(i)<=35)
+             demand(i)=1;
+    else if(Random_digit_for_demand(i)<=70)
+             demand(i)=2;
+    else if(Random_digit_for_demand(i)<=91)
+             demand(i)=3;
+        else(Random_digit_for_demand(i)<=100)
+             demand(i)=4;
+        end
+        end
+        end
+    end
+    ending_inventory(i)=begining_inventory(i)-demand(i)
+    begining_inventory(i)=ending_inventory(i)
+    
+    
+    
+end

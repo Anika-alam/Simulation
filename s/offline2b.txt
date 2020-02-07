@@ -1,0 +1,94 @@
+xUpper = 1;
+xLower = -1;
+yUpper = 1;
+yLower = -1;
+
+xAll = [];
+yAll = [];
+xHit = [];
+yHit = [];
+xMis = [];
+yMis = [];
+errVal4DifTrials = [];
+
+theoriticalI = 2;
+
+hits = 0;
+
+%ploting intersecting rectangle
+x = linspace(0,xUpper,500);
+y = 1 - x;
+plot(x,y,'b');
+hold on;
+
+y = - 1 + x;
+plot(x,y,'b');
+
+x = linspace(xLower,0,500);
+y = -1 - x;
+plot(x,y,'b');
+
+y = 1 + x;
+plot(x,y,'b');
+
+%
+trialValues = (10:5:500);
+trialValuesSz = size(trialValues);
+
+for i=1 : trialValuesSz(2)
+  xHit = [];
+  yHit = [];
+  xMis = [];
+  yMis = [];
+  xAll = [];
+  yAll = [];
+  hits = 0 ;
+  trials = trialValues(i);
+  %trials = 1000;
+  for i=1:trials
+    x = xLower + rand()*(xUpper - xLower);
+    y = yLower + rand()*(yUpper - yLower);
+    
+    %defining which fx to choose
+    if (x>=0 && y>=0)
+      fx = 1 - x;
+    elseif (x>=0 && y<0)
+      fx = -1 + x;
+    elseif (x<=0 && y<0)
+      fx = -1 - x;
+    else
+      fx = 1 + x;
+    end
+  
+    %defining the logic of counting hits and miss
+    if (y>=0 && y <= fx) || (y<=0 && y>= fx)
+      hits = hits + 1 ;
+      xHit = [xHit x];
+      yHit = [yHit y];
+    else
+      xMis = [xMis x];
+      yMis = [yMis y];
+    end
+    
+    xAll = [xAll x];
+    yAll = [yAll y];
+    %fprintf("x=%f\n",x);
+  end
+  
+%plot(xAll,yAll,'r.');
+%plot(xHit,yHit,'g.');
+%hold on;
+%plot(xMis,yMis,'r.');
+
+R = (xUpper - xLower)*(yUpper - yLower);
+I = (hits/trials)*R;
+disp(I);
+error = abs(theoriticalI - I);
+errVal4DifTrials = [errVal4DifTrials error];
+
+end
+hold off;
+plot(trialValues,errVal4DifTrials);
+%axis([0 500 0 2]);
+xlabel('Trials');
+ylabel('Error');

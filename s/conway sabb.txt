@@ -1,0 +1,55 @@
+noOfGen = 3;
+
+n = 5;
+row = 5;
+col = row;
+
+gen =  [ 0 0 0 0 0;0 0 1 1 1;0 1 1 1 0;0 0 0 0 0;0 0 0 0 0];
+genTemp = gen;
+disp(gen);
+for iter=1:noOfGen
+    fprintf('Generation %d\n',iter);
+    disp(gen);
+    genTemp = gen;
+    for i=1:n
+       for j=1:n
+           count = 0;
+           P = i - 1;
+           Q = j - 1;
+           R = i + 1;
+           S = j + 1;
+           
+           if(P<1)
+               P = 1;
+           end
+           if(Q<1)
+               Q = 1;
+           end
+           if(R>n)
+               R = n;
+           end
+           if(S>n)
+               S = n;
+           end 
+           
+           for a=P : R
+               for b=Q:S
+                   
+                   if( (a==i) && (b==j) )
+                   else
+                        count = count + genTemp(a,b);
+                        
+                   end
+               end
+           end
+          
+           if(gen(i,j)==0 && count==3)
+               gen(i,j)=1;
+           elseif(gen(i,j)==1 && count<2)
+               gen(i,j)=0;
+           elseif(gen(i,j)==1 && count>3)
+               gen(i,j)=0;
+           end     
+       end
+    end
+end

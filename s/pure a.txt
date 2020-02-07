@@ -1,0 +1,47 @@
+xA_d = 0;
+yA_d = 0;
+vA = 60;
+
+xA_posns = [xA_d];
+yA_posns = [yA_d];
+
+xB_t = 10000;
+yB_t = 10000;
+vB = 50; 
+
+xB_posns = [xB_t];
+yB_posns = [yB_t];
+
+timeLimit = 300;
+distanceLimit = 1000;
+
+delT = 2;
+
+t=0;
+while(1)
+  distance = sqrt((xB_t - xA_d)^2 + (yB_t - yA_d)^2 );
+  
+  if(t >= timeLimit)
+    disp('Target B Wins');
+    break;
+  elseif (distance<=distanceLimit)
+    disp('Defense A Wins');
+    break;
+  end
+  xB_t_prev = xB_t;
+  xB_t = xB_t - vB*delT;
+  
+  xA_d = xA_d + vA*delT * ((xB_t_prev - xA_d)/distance);
+  yA_d = yA_d + vA*delT * ((yB_t - yA_d)/distance);
+  
+  xB_posns = [xB_posns xB_t];
+  yB_posns = [yB_posns yB_t];
+
+  xA_posns = [xA_posns xA_d];
+  yA_posns = [yA_posns yA_d];
+  t = t + delT;
+end
+
+plot(xB_posns,yB_posns,'go','MarkerSize',10,'LineWidth',5);
+hold on;
+plot(xA_posns,yA_posns,'ro','MarkerSize',10,'LineWidth',5);

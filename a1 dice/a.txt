@@ -1,0 +1,21 @@
+prompt=('input trial no: ');
+n= input(prompt);
+array= zeros(1,6);
+theo_prob=1/6;
+a=[1:6];
+
+%generate random numbers
+
+for i=1:n
+    numbers=randi(6);
+    array(numbers)= array(numbers)+1;
+end
+
+disp('probabilities: ')
+for i=1:6
+    d= array(i)/n;
+    disp(d);
+end
+
+
+

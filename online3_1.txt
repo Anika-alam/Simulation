@@ -1,0 +1,42 @@
+v_d=60;
+attack_dis=1000;
+simu_time=300;
+del_t=1;
+
+d_x=0; d_y=0; plot(d_x,d_y,'r.');
+hold on;
+t_x=10000, t_y=10000; plot(t_x,t_y,'g.');
+
+
+%simu sec
+    d_x=0; d_y=0; plot(d_x,d_y,'r.');
+    hold on;
+    t_x=10000, t_y=10000; plot(t_x,t_y,'g.');
+    hold on;
+   
+    
+    %for target
+    y_t=10000;
+    del_s=50*del_t;
+    x_t=10000;
+    %formula fo x and y
+    
+    for i=1:300
+    
+    target_x_t_plus_delt_t=x_t-del_s;
+    target_y_t_plus_delt_t=y_t;
+    
+    del_s=del_s+1;
+    plot(target_x_t_plus_delt_t,target_y_t_plus_delt_t,'g.');
+    
+    end
+    
+    %for defender
+    y_d=0;
+    del_x=
+    for i=1:300
+        defender_x_t_plus_delt_t=x_t+del_x;
+        defender_y_t_plus_delt_t=y_t+del_y;
+    end
+    
+
